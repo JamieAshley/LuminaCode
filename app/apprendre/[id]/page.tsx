@@ -15,12 +15,10 @@ import { highlight, languages } from 'prismjs';
 import 'prismjs/components/prism-python';
 import 'prismjs/themes/prism-tomorrow.css'; 
 
-// --- CORRECTION DU TYPE POUR ÉVITER L'ERREUR VERCEL ---
 declare global {
   interface Window {
-    loadPyodide: (options: { indexURL: string }) => Promise<{
+    loadPyodide: () => Promise<{
       runPythonAsync: (code: string) => Promise<string>;
-      runPython: (code: string) => any;
     }>;
   }
 }
