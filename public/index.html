@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Code | Python Academy</title>
+    <link rel="stylesheet" href="projet.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.43.0/min/vs/loader.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">🐍 LUMINA <span>CODE</span></div>
+        <div class="header-right">
+            <div class="progress-container">
+                [cite_start]<span id="progress-percent">0% [cite: 11]</span>
+                <div class="bar-bg"><div id="bar-fill"></div></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-layout">
+        <aside class="sidebar">
+            [cite_start]<h3>Sommaire [cite: 11]</h3>
+            <ul id="chapter-list"></ul>
+        </aside>
+
+        <section class="lesson-panel">
+            <div id="lock-overlay" class="hidden">
+                <div class="lock-content">
+                    [cite_start]<span class="lock-icon">🔒 [cite: 11]</span>
+                    [cite_start]<h2>Chapitre Verrouillé [cite: 11]</h2>
+                    [cite_start]<p>Terminez le chapitre précédent pour débloquer ce contenu. [cite: 11]</p>
+                </div>
+            </div>
+            
+            <div id="lesson-content">
+                [cite_start]<h1 id="chap-title">Chargement... [cite: 11]</h1>
+                <div id="chap-lecon" class="scroll-content"></div>
+                <div id="quiz-area"></div>
+                <div id="goal-container" class="goal-box hidden">
+                    [cite_start]<strong>🎯 Objectif : [cite: 11]</strong> <span id="chap-obj"></span>
+                    <div id="exercise-stats">
+                        [cite_start]Exercice <span id="current-ex-num">1</span>/5 — Score: <span id="score-val">0</span>/5 [cite: 11]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="terminal-side" class="terminal-panel hidden">
+            <div class="terminal-window">
+                <div class="term-header">
+                    [cite_start]<div class="dots"><span></span><span></span><span></span> [cite: 11]</div>
+                    [cite_start]<span class="file-name">main.py [cite: 11]</span>
+                </div>
+                <div id="monaco-container" style="height: 400px; width: 100%; border-bottom: 1px solid #333;"></div>
+                
+                [cite_start]<div id="console" class="console-output">>>> Console prête. [cite: 11]</div>
+                [cite_start]<button class="run-btn" onclick="validateExercise()">VÉRIFIER LE CODE [cite: 11]</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast-container" class="toast-hidden">
+        <div id="toast-message"></div>
+    </div>
+<div id="monaco-container" style="height: 500px; width: 100%;"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.43.0/min/vs/loader.min.js"></script>
+<script src="projet.js"></script>
+</body>
+</html>

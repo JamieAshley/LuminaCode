@@ -1,0 +1,324 @@
+/* --- VARIABLES ET RESET --- */
+:root {
+    --bg: #05070a;
+    --side: #0d1117;
+    --panel: #161b22;
+    --accent: #58a6ff;
+    --success: #3fb950;
+    --error: #f85149;
+    --text: #c9d1d9;
+    --border: #30363d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* --- HEADER ET PROGRESSION --- */
+header {
+    background: #010409;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    height: 65px;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.progress-container {
+    text-align: right;
+}
+
+#progress-percent {
+    font-size: 0.85rem;
+    color: var(--success);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.bar-bg {
+    width: 250px;
+    height: 8px;
+    background: #30363d;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--success), #a2ffb4);
+    box-shadow: 0 0 10px rgba(63, 185, 80, 0.5);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- LAYOUT PRINCIPAL --- */
+.main-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* --- SIDEBAR (SOMMAIRE) --- */
+.sidebar {
+    width: 280px;
+    background: var(--side);
+    border-right: 1px solid var(--border);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h3 {
+    font-size: 0.75rem;
+    color: #8b949e;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+#chapter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#chapter-list li {
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #8b949e;
+    transition: 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid transparent;
+}
+
+#chapter-list li.unlocked {
+    cursor: pointer;
+    color: var(--text);
+}
+
+#chapter-list li.unlocked:hover {
+    background: #21262d;
+    border-color: #444c56;
+}
+
+#chapter-list li.active {
+    background: rgba(88, 166, 255, 0.1);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* --- PANNEAU LEÇON --- */
+.lesson-panel {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    position: relative;
+    background: var(--bg);
+}
+
+.scroll-content {
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+.scroll-content b {
+    color: var(--accent);
+}
+
+.scroll-content code {
+    background: #21262d;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+/* --- SYSTEME DE VERROUILLAGE --- */
+#lock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 17, 23, 0.92);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    text-align: center;
+}
+
+.lock-content h2 { color: white; }
+.lock-icon { font-size: 4rem; display: block; margin-bottom: 10px; }
+
+/* --- TERMINAL PANEL --- */
+.terminal-panel {
+    flex: 1.3;
+    background: #010409;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-window {
+    background: var(--side);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.term-header {
+    background: #21262d;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dots { display: flex; gap: 6px; }
+.dots span { width: 12px; height: 12px; border-radius: 50%; }
+.dots span:nth-child(1) { background: #ff5f56; }
+.dots span:nth-child(2) { background: #ffbd2e; }
+.dots span:nth-child(3) { background: #27c93f; }
+
+.file-name {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #8b949e;
+}
+
+textarea {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #7ee787;
+    padding: 20px;
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 1.1rem;
+    outline: none;
+    resize: none;
+    line-height: 1.5;
+}
+
+.console-output {
+    height: 160px;
+    background: #000;
+    border-top: 1px solid var(--border);
+    padding: 15px;
+    font-family: 'Consolas', monospace;
+    font-size: 0.9rem;
+    color: #8b949e;
+    overflow-y: auto;
+}
+
+.run-btn {
+    background: var(--success);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.run-btn:hover {
+    filter: brightness(1.2);
+}
+
+/* --- QUIZ & EXERCICES --- */
+.quiz-box {
+    background: var(--side);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-top: 20px;
+}
+
+.quiz-input {
+    width: 100%;
+    padding: 12px;
+    background: #010409;
+    border: 1px solid var(--border);
+    color: white;
+    border-radius: 6px;
+    margin: 10px 0 20px 0;
+}
+
+.goal-box {
+    background: rgba(88, 166, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--accent);
+    margin-top: 30px;
+}
+
+#exercise-stats {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* --- NOTIFICATIONS (TOASTS) --- */
+#toast-container {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    padding: 16px 28px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toast-success { background: var(--success); }
+.toast-error { background: var(--error); }
+.toast-info { background: var(--accent); }
+.toast-hidden { display: none !important; }
+
+@keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* --- UTILS --- */
+.hidden { display: none !important; }

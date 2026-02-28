@@ -1,0 +1,224 @@
+{
+  "formation": "Python Academy Master : Du Script au Logiciel",
+  "chapitres": [
+    {
+      "id": 0,
+      "titre": "Niveau 0 : Architecture de l'esprit (Logique & Flux)",
+      "lecon": "<h3>1. La pensée algorithmique</h3>Un algorithme n'est pas du code, c'est une <b>stratégie</b>. Avant de coder, on définit : <br>- <b>L'Entrée (Input) :</b> Quelles données reçoit-on ?<br>- <b>Le Traitement :</b> Quelles transformations ?<br>- <b>La Sortie (Output) :</b> Quel résultat attendu ?<br><br><h3>2. Les Séquences et le Flux</h3>En Python, le flux est linéaire (de haut en bas). Cependant, l'efficacité dépend de la complexité temporelle (le temps que prend l'algorithme à s'exécuter).<br><br><h3>3. Analogie du tri</h3>Imaginez devoir trier 1000 dossiers par nom. Allez-vous les comparer un par un (Tri à bulles) ou diviser le tas en deux récursivement (Tri fusion) ? La programmation commence par ce choix.",
+      "questions_cours": [
+        { "q": "Comment appelle-t-on le temps d'exécution théorique d'un algorithme ?", "r": "complexité" },
+        { "q": "L'ordre des instructions définit-il le flux d'exécution ?", "r": "oui" }
+      ],
+      "exercices": [],
+      "terminal_requis": false
+    },
+    {
+      "id": 1,
+      "titre": "Niveau 1 : Types de données atomiques & Arithmétique",
+      "lecon": "<h3>1. Typage dynamique</h3>Python est à <b>typage dynamique</b> : une variable peut changer de type, mais il est fortement typé (on ne peut pas additionner un texte et un nombre).<br>Types avancés : <code>complex</code> pour les calculs d'ingénierie.<br><br><h3>2. Opérateurs de précision</h3>- <code>//</code> : Division entière (ignore la virgule).<br>- <code>%</code> : Modulo (déterminer si un nombre est pair/impair).<br>- <code>**</code> : Puissance.<br><br><h3>3. Casting</h3>Transformer un type en un autre : <code>str(5)</code>, <code>int('10')</code>.",
+      "questions_cours": [
+        { "q": "Quel opérateur permet de vérifier si un nombre est pair (résultat 0) ?", "r": "%" },
+        { "q": "Peut-on changer le type d'une variable en plein milieu du code ?", "r": "oui" }
+      ],
+      "exercices": [
+        { "q": "Déclarez n=15.5, convertissez-le en entier et affichez-le.", "expected": "15" },
+        { "q": "Calculez et affichez 2 à la puissance 10.", "expected": "1024" },
+        { "q": "Affichez le reste de la division de 21 par 4.", "expected": "1" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 2,
+      "titre": "Niveau 2 : Logique Booléenne & Branchements Conditionnels",
+      "lecon": "<h3>1. Algèbre de Boole</h3>Utilisation de <code>and</code>, <code>or</code>, et <code>not</code> pour créer des filtres complexes.<br>Priorité : le <code>not</code> est prioritaire, suivi de <code>and</code>, puis <code>or</code>.<br><br><h3>2. Structures imbriquées</h3>Une condition <code>if</code> peut contenir une autre condition. Attention à l'<b>indentation</b> (4 espaces), c'est elle qui définit la hiérarchie en Python.<br><br><h3>3. L'expression Ternaire</h3>Une ligne pour décider : <code>resultat = \"Ok\" if x > 5 else \"Ko\"</code>.",
+      "questions_cours": [
+        { "q": "Quelle est l'unité d'espacement standard pour l'indentation ?", "r": "4" },
+        { "q": "Que retourne 'not True' ?", "r": "False" }
+      ],
+      "exercices": [
+        { "q": "Si x=10 et y=20, affichez 'Grand' si x+y > 25.", "expected": "Grand" },
+        { "q": "Utilisez un ternaire pour afficher 'Pair' si 4 est pair, sinon 'Impair'.", "expected": "Pair" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 3,
+      "titre": "Niveau 3 : Itérations Complexes & Contrôle de Flux",
+      "lecon": "<h3>1. Boucles For et While</h3>- <code>for</code> : Parfait pour parcourir des listes ou des plages d'index.<br>- <code>while</code> : Idéal pour les systèmes d'écoute (ex: serveur qui attend un message).<br><br><h3>2. Mots-clés de contrôle</h3>- <code>break</code> : Sort immédiatement de la boucle.<br>- <code>continue</code> : Saute l'itération actuelle pour passer à la suivante.<br>- <code>else</code> dans une boucle : S'exécute uniquement si la boucle s'est terminée normalement (sans break).",
+      "questions_cours": [
+        { "q": "Quel mot-clé interrompt prématurément une boucle ?", "r": "break" },
+        { "q": "Le 'else' d'une boucle s'exécute-t-il après un 'break' ?", "r": "non" }
+      ],
+      "exercices": [
+        { "q": "Affichez les nombres de 1 à 3 inclus avec une boucle for.", "expected": "1\n2\n3\n" },
+        { "q": "Parcourez range(5), affichez 'Ok' seulement pour i == 3 avec continue.", "expected": "Ok" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 4,
+      "titre": "Niveau 4 : Manipulation de Séquences (Listes & Slicing)",
+      "lecon": "<h3>1. Le Slicing [start:stop:step]</h3>Technique ultra-puissante pour découper des listes ou chaînes.<br><code>L[::2]</code> : un élément sur deux.<br><code>L[::-1]</code> : inverse la liste.<br><br><h3>2. List Methods</h3>- <code>.append()</code> : Ajoute à la fin.<br>- <code>.pop()</code> : Retire et renvoie le dernier élément.<br>- <code>.sort()</code> : Trie sur place (efficace en mémoire).",
+      "questions_cours": [
+        { "q": "Quel index correspond au dernier élément d'une liste ?", "r": "-1" },
+        { "q": "Comment inverser la chaîne 'ABC' via slicing ?", "r": "[::-1]" }
+      ],
+      "exercices": [
+        { "q": "L = [1, 2, 3]. Affichez L inversée.", "expected": "[3, 2, 1]" },
+        { "q": "L = [10, 20, 30]. Affichez les deux premiers éléments via slicing.", "expected": "[10, 20]" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 5,
+      "titre": "Niveau 5 : Dictionnaires, JSON & Data Mapping",
+      "lecon": "<h3>1. Hash Maps (Dictionnaires)</h3>Stockage par clés. Accès en temps constant O(1), très rapide.<br>Méthodes : <code>.keys()</code>, <code>.values()</code>, <code>.items()</code>.<br><br><h3>2. Structuration</h3>Les dictionnaires sont la base du format <b>JSON</b> utilisé par toutes les API modernes (Google, Twitter, etc.).",
+      "questions_cours": [
+        { "q": "Les clés d'un dictionnaire peuvent-elles être des doublons ?", "r": "non" },
+        { "q": "Quelle méthode renvoie les couples clé/valeur ?", "r": "items" }
+      ],
+      "exercices": [
+        { "q": "d = {'id': 1}. Affichez la valeur de 'id'.", "expected": "1" },
+        { "q": "d = {'a': 10}. Ajoutez 'b': 20 et affichez d.", "expected": "{'a': 10, 'b': 20}" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 6,
+      "titre": "Niveau 6 : Modularité & Fonctions Avancées",
+      "lecon": "<h3>1. Paramètres et Arguments</h3>- <code>*args</code> : Liste d'arguments variables.<br>- <code>**kwargs</code> : Dictionnaire d'arguments nommés.<br><br><h3>2. Décorateurs</h3>Une fonction qui entoure une autre pour ajouter de la logique (ex: vérifier si un utilisateur est connecté avant d'afficher une page).",
+      "questions_cours": [
+        { "q": "Quel symbole pour passer un nombre inconnu d'arguments nommés ?", "r": "**kwargs" },
+        { "q": "Une fonction peut-elle retourner une autre fonction ?", "r": "oui" }
+      ],
+      "exercices": [
+        { "q": "Créez f(*args) et affichez le premier argument. Appelez f(10, 20).", "expected": "10" },
+        { "q": "Créez une lambda qui multiplie x par y. Calculez pour 2, 5.", "expected": "10" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 7,
+      "titre": "Niveau 7 : POO Avancée (Architecture Logicielle)",
+      "lecon": "<h3>1. Encapsulation</h3>Cacher les données sensibles avec <code>__attribut</code> (private).<br><br><h3>2. Polymorphisme</h3>Plusieurs classes ayant la même méthode mais des comportements différents.<br><br><h3>3. Méthodes Spéciales (Dunder)</h3><code>__str__</code> pour définir comment l'objet s'affiche, <code>__init__</code> pour le constructeur.",
+      "questions_cours": [
+        { "q": "Comment s'appelle la méthode de création d'un objet ?", "r": "__init__" },
+        { "q": "Le concept de cacher des attributs s'appelle l'...", "r": "encapsulation" }
+      ],
+      "exercices": [
+        { "q": "Classe C avec __init__ qui fixe self.x=9. Affichez l'objet.x.", "expected": "9" },
+        { "q": "Affichez le nom de la classe d'une instance 'obj'.", "expected": "<class '__main__.C'>" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 8,
+      "titre": "Niveau 8 : Gestion d'Exception & Robustesse",
+      "lecon": "<h3>1. Hiérarchie des erreurs</h3>Toutes les erreurs héritent de <code>BaseException</code>. On peut créer ses propres erreurs personnalisées.<br><br><h3>2. Gestion propre</h3><code>try</code> (on essaie), <code>except</code> (on capture), <code>finally</code> (on ferme les fichiers ou la base de données quoi qu'il arrive).",
+      "questions_cours": [
+        { "q": "Quel bloc s'exécute toujours, même en cas d'erreur ?", "r": "finally" },
+        { "q": "Peut-on capturer plusieurs types d'erreurs avec un seul try ?", "r": "oui" }
+      ],
+      "exercices": [
+        { "q": "Faites un try: 1/0 except ZeroDivisionError: print('Erreur')", "expected": "Erreur" },
+        { "q": "Utilisez raise ValueError('Stop') et affichez le message d'erreur.", "expected": "Stop" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 9,
+      "titre": "Niveau 9 : Algorithmique Appliquée (Fichiers & Performance)",
+      "lecon": "<h3>1. Context Managers</h3>Utilisation de <code>with open()</code> pour garantir qu'un fichier est fermé même si le programme plante.<br><br><h3>2. List Comprehensions (Performance)</h3>Plus rapide que les boucles standard car exécutées au niveau C de Python.<br>Syntaxe : <code>[expression for item in iterable if condition]</code>.",
+      "questions_cours": [
+        { "q": "Quel mot-clé ouvre un fichier de manière sécurisée ?", "r": "with" },
+        { "q": "Quel mode d'ouverture pour 'écrire' dans un fichier ?", "r": "w" }
+      ],
+      "exercices": [
+        { "q": "Créez [x*x for x in range(3)] et affichez-le.", "expected": "[0, 1, 4]" },
+        { "q": "Filtrez [1, 10, 20] pour ne garder que > 5 en une ligne.", "expected": "[10, 20]" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 10,
+      "titre": "Niveau 10 : L'Examen Final (Le Master)",
+      "lecon": "<h3>Félicitations</h3>Vous avez parcouru les fondations, la logique, les structures de données, la POO et l'optimisation. <br><br><b>Votre défi final :</b><br>Vous devez prouver que vous savez combiner la logique de filtrage (Comprehension), la gestion de données (Dictionnaires) et la modularité (Fonctions).",
+      "questions_cours": [
+        { "q": "Python est-il un langage compilé ou interprété ?", "r": "interprété" },
+        { "q": "Quel est le Zen de Python (import ...) ?", "r": "this" }
+      ],
+      "exercices": [
+        { "q": "Créez une liste des carrés des nombres pairs entre 0 et 4 (inclus).", "expected": "[0, 4, 16]" },
+        { "q": "Fusionnez d1={'a':1} et d2={'b':2} et affichez le résultat.", "expected": "{'a': 1, 'b': 2}" }
+      ],
+      "terminal_requis": true
+    },
+  
+    {
+      "id": 11,
+      "titre": "Niveau 11 : Programmation Asynchrone (Concurrency)",
+      "lecon": "<h3>1. Pourquoi l'Asynchronisme ?</h3>Normalement, Python exécute une ligne à la fois. Si vous téléchargez un fichier, tout s'arrête. Avec <code>asyncio</code>, Python peut 'mettre en pause' une tâche pour en faire une autre en attendant.<br><br><h3>2. Mots-clés</h3>- <code>async def</code> : Définit une coroutine.<br>- <code>await</code> : Dit à Python 'attends ici que le résultat soit prêt sans bloquer le reste'.<br><br><h3>3. Event Loop</h3>C'est le chef d'orchestre qui gère toutes les tâches en attente.",
+      "questions_cours": [
+        { "q": "Quel mot-clé définit une fonction asynchrone ?", "r": "async" },
+        { "q": "Comment appelle-t-on une fonction définie par 'async def' ?", "r": "coroutine" }
+      ],
+      "exercices": [
+        { "q": "Affichez 'Start', puis simulez une attente asynchrone et affichez 'End'.", "expected": "Start\nEnd" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 12,
+      "titre": "Niveau 12 : Les Décorateurs & Wrappers",
+      "lecon": "<h3>1. Fonctions de premier ordre</h3>En Python, une fonction est un objet. On peut la passer en argument ou la mettre dans une variable.<br><br><h3>2. Le concept de Décorateur</h3>Un décorateur est une fonction qui prend une autre fonction, lui ajoute du code avant ou après, et la renvoie. Très utile pour le <b>Logging</b> ou la <b>Sécurité</b>.<br><br><h3>3. Syntaxe @</h3>Le symbole <code>@mon_decorateur</code> placé au-dessus d'une fonction automatise l'emballage.",
+      "questions_cours": [
+        { "q": "Quel symbole préfixe un décorateur en Python ?", "r": "@" },
+        { "q": "Un décorateur peut-il modifier le résultat d'une fonction ?", "r": "oui" }
+      ],
+      "exercices": [
+        { "q": "Appliquez un décorateur qui affiche 'Log' avant d'exécuter une fonction qui affiche 'Hello'.", "expected": "Log\nHello" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 13,
+      "titre": "Niveau 13 : Méta-programmation & Introspection",
+      "lecon": "<h3>1. Inspecter le code</h3>L'introspection permet au programme d'examiner ses propres objets à l'exécution avec <code>type()</code>, <code>dir()</code>, ou <code>getattr()</code>.<br><br><h3>2. Les Métaclasses</h3>Si une classe est le moule des objets, une métaclasse est le <b>moule des classes</b>. La métaclasse par défaut est <code>type</code>.<br><br><h3>3. Cas d'usage</h3>Créer des frameworks où les classes se configurent automatiquement au moment de leur création.",
+      "questions_cours": [
+        { "q": "Quelle fonction intégrée liste tous les attributs d'un objet ?", "r": "dir()" },
+        { "q": "Quelle est la métaclasse de base de toutes les classes ?", "r": "type" }
+      ],
+      "exercices": [
+        { "q": "Affichez si l'objet 'x' possède l'attribut 'run' via hasattr().", "expected": "False" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 14,
+      "titre": "Niveau 14 : Gestion de Mémoire & Garbage Collection",
+      "lecon": "<h3>1. Le comptage de références</h3>Python détruit un objet dès que plus aucune variable ne pointe vers lui. C'est le <b>Reference Counting</b>.<br><br><h3>2. Le Garbage Collector (gc)</h3>Pour les cycles (A pointe vers B qui pointe vers A), Python utilise un collecteur de déchets cycliques.<br><br><h3>3. __slots__</h3>Utiliser <code>__slots__</code> dans une classe permet d'économiser énormément de RAM en empêchant la création du dictionnaire dynamique d'attributs.",
+      "questions_cours": [
+        { "q": "Quel module gère manuellement le ramasse-miettes ?", "r": "gc" },
+        { "q": "Quel attribut spécial réduit l'empreinte mémoire d'une classe ?", "r": "__slots__" }
+      ],
+      "exercices": [
+        { "q": "Créez une classe S avec __slots__=['a']. Instanciez et affichez 'Ok'.", "expected": "Ok" }
+      ],
+      "terminal_requis": true
+    },
+    {
+      "id": 15,
+      "titre": "Niveau 15 : Patterns de Design & Clean Code",
+      "lecon": "<h3>1. Singleton & Factory</h3>- <b>Singleton :</b> Garantit qu'une classe n'a qu'une seule instance (ex: connexion Base de données).<br>- <b>Factory :</b> Une fonction qui crée différents types d'objets selon le besoin.<br><br><h3>2. SOLID</h3>Cinq principes pour un code maintenable : Responsabilité unique, Ouvert/Fermé, etc.<br><br><h3>3. Tests Unitaires</h3>Utilisation de <code>pytest</code> pour vérifier que chaque petite partie du code fonctionne parfaitement avant la mise en production.",
+      "questions_cours": [
+        { "q": "Quel pattern garantit une instance unique ?", "r": "singleton" },
+        { "q": "Que signifie le 'S' dans SOLID ?", "r": "single responsibility" }
+      ],
+      "exercices": [
+        { "q": "Codez une Factory qui renvoie 'A' ou 'B'. Affichez le résultat pour 'A'.", "expected": "A" },
+        { "q": "Vérifiez via assert que 1+1 == 2 et affichez 'Pass'.", "expected": "Pass" }
+      ],
+      "terminal_requis": true
+    }
+  ]
+}
