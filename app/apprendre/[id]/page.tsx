@@ -17,8 +17,9 @@ import 'prismjs/themes/prism-tomorrow.css';
 
 declare global {
   interface Window {
-    loadPyodide: () => Promise<{
+    loadPyodide: (config: { indexURL: string }) => Promise<{
       runPythonAsync: (code: string) => Promise<string>;
+      runPython: (code: string) => any;
     }>;
   }
 }
