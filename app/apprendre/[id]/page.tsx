@@ -16,9 +16,12 @@ import 'prismjs/components/prism-python';
 import 'prismjs/themes/prism-tomorrow.css'; 
 
 declare global {
-  interface Window { loadPyodide: any; }
+  interface Window {
+    loadPyodide: () => Promise<{
+      runPythonAsync: (code: string) => Promise<string>;
+    }>;
+  }
 }
-
 interface Chapitre {
   id: number;
   titre: string;
