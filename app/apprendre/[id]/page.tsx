@@ -15,14 +15,7 @@ import { highlight, languages } from 'prismjs';
 import 'prismjs/components/prism-python';
 import 'prismjs/themes/prism-tomorrow.css'; 
 
-declare global {
-  interface Window {
-    loadPyodide: (config: { indexURL: string }) => Promise<{
-      runPythonAsync: (code: string) => Promise<string>;
-      runPython: (code: string) => any;
-    }>;
-  }
-}
+
 interface Chapitre {
   id: number;
   titre: string;
@@ -111,17 +104,21 @@ export default function ApprendrePage() {
   };
 
   // --- INIT PYTHON ---
-  useEffect(() => {
+useEffect(() => {
     async function initPython() {
-      if (typeof window !== 'undefined' && window.loadPyodide && !pyodideRef.current) {
+      // On utilise "as any" pour forcer le passage sans déclaration globale
+      const win = window as any; 
+      if (typeof window !== 'undefined' && win.loadPyodide && !pyodideRef.current) {
         try {
-          pyodideRef.current = await window.loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/" });
+          pyodideRef.current = await win.loadPyodide({ 
+            indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/" 
+          });
           setPyLoading(false);
         } catch (err) { console.error(err); }
       }
     }
     initPython();
-  }, []);
+  }, []);;
 
   // --- CHARGEMENT DES DONNÉES ET PROGRESSION ---
   useEffect(() => {
