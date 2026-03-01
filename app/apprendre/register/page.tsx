@@ -35,39 +35,41 @@ export default function Register() {
     setToast({ message, type })
   }
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    
+ const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
-        options: { 
-          data: { display_name: username },
-          emailRedirectTo: `${window.location.origin}/apprendre`
-        }
-      })
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
 
-      if (error) {
-        showNotify(error.message, 'error')
-      } else if (data?.user?.id) {
-        if (data.session) {
-            showNotify("Séquence d'accès validée. Initialisation...", 'success')
-            setTimeout(() => {
-              router.push(`/apprendre/${data.user.id}`)
-            }, 1500)
-        } else {
-            showNotify("Port de communication ouvert. Vérifiez vos emails pour valider l'accès.", 'success')
-        }
+      if (error) throw error;
+
+      // LA SOLUTION EST ICI : 
+      // On vérifie explicitement que data et data.user ne sont pas null
+      if (data && data.user) {
+        showNotify("Séquence d'accès validée. Initialisation...", 'success');
+        
+        // TypeScript sait maintenant que data.user n'est pas null ici
+        const userId = data.user.id; 
+        
+        setTimeout(() => {
+          router.push(`/apprendre/${userId}`);
+        }, 1500);
+      } else {
+        showNotify("Vérifiez vos emails pour valider l'accès.", 'success');
       }
-    } catch (err) {
-      showNotify("Erreur de connexion au serveur", "error")
+    } catch (err: any) {
+      showNotify(err.message || "Erreur d'authentification", 'error');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
-
+  };
   if (!mounted) return null
 
   return (
