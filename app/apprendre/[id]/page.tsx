@@ -89,7 +89,7 @@ export default function ApprendrePage() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  // Correction e: any pour éviter le blocage de l'éditeur sur Vercel
+  // Correction e: any pour éviter le blocage sur Vercel
   const handleKeyDown = (e: any) => {
     const pairs: Record<string, string> = { '(': ')', '[': ']', '{': '}', '"': '"', "'": "'" };
     if (pairs[e.key]) {
@@ -107,7 +107,7 @@ export default function ApprendrePage() {
     }
   };
 
-  // --- INIT PYTHON (Passage sécurisé pour Vercel) ---
+  // --- INIT PYTHON ---
   useEffect(() => {
     async function initPython() {
       const win = window as any;
@@ -123,7 +123,7 @@ export default function ApprendrePage() {
     initPython();
   }, []);
 
-  // --- CHARGEMENT DES DONNÉES ET PROGRESSION ---
+  // --- CHARGEMENT ---
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -146,7 +146,7 @@ export default function ApprendrePage() {
     loadData();
   }, [supabase, router]); 
 
-  // --- SAUVEGARDE DU NIVEAU ACTUEL (Indispensable pour ta progression) ---
+  // --- SYNC PROGRESSION ---
   useEffect(() => {
     const syncCurrentPosition = async () => {
       const { data: { user } } = await supabase.auth.getUser();
