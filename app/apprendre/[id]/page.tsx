@@ -90,24 +90,28 @@ export default function ApprendrePage() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+const handleKeyDown = (e: any) => {
     const pairs: Record<string, string> = { '(': ')', '[': ']', '{': '}', '"': '"', "'": "'" };
     if (pairs[e.key]) {
       e.preventDefault();
-      const { selectionStart, selectionEnd } = e.currentTarget;
+      const { selectionStart, selectionEnd, value } = e.target;
       const char = e.key;
       const closingChar = pairs[char];
-      const newValue = codeInput.substring(0, selectionStart) + char + closingChar + codeInput.substring(selectionEnd);
+      
+      const newValue = value.substring(0, selectionStart) + char + closingChar + value.substring(selectionEnd);
       setCodeInput(newValue);
-      setTimeout(() => { e.currentTarget.selectionStart = e.currentTarget.selectionEnd = selectionStart + 1; }, 0);
+      
+      // Petit délai pour replacer le curseur entre les parenthèses
+      setTimeout(() => {
+        e.target.selectionStart = e.target.selectionEnd = selectionStart + 1;
+      }, 0);
     }
   };
 
   // --- INIT PYTHON ---
 useEffect(() => {
     async function initPython() {
-      // On utilise "as any" pour forcer le passage sans déclaration globale
-      const win = window as any; 
+      const win = window as any;
       if (typeof window !== 'undefined' && win.loadPyodide && !pyodideRef.current) {
         try {
           pyodideRef.current = await win.loadPyodide({ 
@@ -118,7 +122,7 @@ useEffect(() => {
       }
     }
     initPython();
-  }, []);;
+  }, []);
 
   // --- CHARGEMENT DES DONNÉES ET PROGRESSION ---
   useEffect(() => {
