@@ -89,7 +89,6 @@ export default function ApprendrePage() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  // Correction e: any pour éviter le blocage sur Vercel
   const handleKeyDown = (e: any) => {
     const pairs: Record<string, string> = { '(': ')', '[': ']', '{': '}', '"': '"', "'": "'" };
     if (pairs[e.key]) {
@@ -277,13 +276,21 @@ export default function ApprendrePage() {
       <section className="flex-1 flex flex-col overflow-hidden">
         <header className={`flex items-center justify-between p-4 border-b ${isDarkMode ? 'bg-black/20 border-white/5' : 'bg-white border-slate-200'}`}>
           <div className="flex items-center gap-4">
-            <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2"><Menu /></button>
+            <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 text-[#306998]"><Menu /></button>
             <div className={`px-3 py-1 rounded-full text-[10px] font-bold ${pyLoading ? 'text-yellow-500 bg-yellow-500/10' : 'text-green-500 bg-green-500/10'}`}>
               {pyLoading ? 'PYTHON_LOADING...' : 'PYTHON_READY'}
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Nouveau bouton PDF visible uniquement sur petit écran dans le header */}
+            <button 
+              onClick={downloadPDF}
+              className={`lg:hidden p-2 rounded-xl transition-all ${isDarkMode ? 'bg-white/5 text-slate-400' : 'bg-slate-100 text-[#306998]'}`}
+            >
+              <Download size={18} />
+            </button>
+
             <button onClick={toggleTheme} className={`p-2 rounded-xl transition-all ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'}`}>
               {isDarkMode ? <Sun size={18} className="text-yellow-400" /> : <Moon size={18} className="text-[#306998]" />}
             </button>
@@ -297,13 +304,13 @@ export default function ApprendrePage() {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-6 lg:p-10">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10">
           <div className="max-w-4xl mx-auto space-y-6">
-            <div className={`p-8 lg:p-10 rounded-3xl border ${isDarkMode ? 'bg-[#161B22] border-white/5 shadow-sm' : 'bg-white border-slate-200 shadow-sm'}`}>
+            <div className={`p-6 sm:p-8 lg:p-10 rounded-3xl border ${isDarkMode ? 'bg-[#161B22] border-white/5 shadow-sm' : 'bg-white border-slate-200 shadow-sm'}`}>
               <div className={`prose ${isDarkMode ? 'prose-invert' : 'prose-slate'} max-w-none
                 prose-h2:text-[#306998] prose-h2:border-l-4 prose-h2:border-[#306998] prose-h2:pl-4 prose-h2:font-black
                 prose-h3:text-[#FFD43B] prose-h3:font-bold`}>
-                <h1 className="text-3xl font-black mb-6">{current.titre}</h1>
+                <h1 className="text-2xl sm:text-3xl font-black mb-6">{current.titre}</h1>
                 <div dangerouslySetInnerHTML={{ __html: current.lecon }} />
               </div>
             </div>
@@ -367,10 +374,11 @@ export default function ApprendrePage() {
           </div>
         </div>
 
-        <footer className={`p-5 border-t flex justify-between items-center ${isDarkMode ? 'bg-black/20 border-white/5' : 'bg-white border-slate-200'}`}>
+        {/* Footer avec bouton PDF toujours présent et bouton Suivant agrandi sur mobile */}
+        <footer className={`p-4 sm:p-5 border-t flex items-center justify-between gap-3 ${isDarkMode ? 'bg-black/20 border-white/5' : 'bg-white border-slate-200'}`}>
           <button 
             onClick={downloadPDF}
-            className={`p-4 rounded-xl transition-all ${isDarkMode ? 'bg-white/5 hover:bg-white/10' : 'bg-slate-100 hover:bg-slate-200 text-slate-500'}`}
+            className={`p-4 rounded-xl transition-all shrink-0 ${isDarkMode ? 'bg-white/5 hover:bg-white/10 text-slate-400' : 'bg-slate-100 hover:bg-slate-200 text-slate-500'}`}
           >
             <Download size={20} />
           </button>
@@ -378,12 +386,12 @@ export default function ApprendrePage() {
           <button 
             onClick={handleNext}
             disabled={!isChapterFinished && currentStep >= unlockedStep}
-            className={`flex items-center gap-2 px-10 py-4 rounded-2xl font-black uppercase tracking-widest transition-all 
+            className={`flex-1 flex items-center justify-center gap-2 px-4 sm:px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-[11px] sm:text-sm transition-all 
               ${isChapterFinished || currentStep < unlockedStep 
-                ? 'bg-[#306998] text-white shadow-lg hover:scale-105 active:scale-95' 
+                ? 'bg-[#306998] text-white shadow-lg hover:scale-[1.02] active:scale-95' 
                 : isDarkMode ? 'bg-slate-800 text-slate-600' : 'bg-slate-200 text-slate-400'}`}
           >
-            Niveau Suivant <ChevronRight size={18} />
+            <span className="truncate">Niveau Suivant</span> <ChevronRight size={18} className="shrink-0" />
           </button>
         </footer>
       </section>
