@@ -15,7 +15,6 @@ import { highlight, languages } from 'prismjs';
 import 'prismjs/components/prism-python';
 import 'prismjs/themes/prism-tomorrow.css'; 
 
-
 interface Chapitre {
   id: number;
   titre: string;
@@ -90,7 +89,8 @@ export default function ApprendrePage() {
     setTimeout(() => setToast(null), 3000);
   };
 
-const handleKeyDown = (e: any) => {
+  // Correction type e: any pour éviter l'erreur de l'éditeur sur Vercel
+  const handleKeyDown = (e: any) => {
     const pairs: Record<string, string> = { '(': ')', '[': ']', '{': '}', '"': '"', "'": "'" };
     if (pairs[e.key]) {
       e.preventDefault();
@@ -101,15 +101,14 @@ const handleKeyDown = (e: any) => {
       const newValue = value.substring(0, selectionStart) + char + closingChar + value.substring(selectionEnd);
       setCodeInput(newValue);
       
-      // Petit délai pour replacer le curseur entre les parenthèses
       setTimeout(() => {
         e.target.selectionStart = e.target.selectionEnd = selectionStart + 1;
       }, 0);
     }
   };
 
-  // --- INIT PYTHON ---
-useEffect(() => {
+  // --- INIT PYTHON (Passage en force avec "as any" pour Vercel) ---
+  useEffect(() => {
     async function initPython() {
       const win = window as any;
       if (typeof window !== 'undefined' && win.loadPyodide && !pyodideRef.current) {
@@ -139,7 +138,7 @@ useEffect(() => {
         if (prog?.completed_steps) {
           setCompletedSteps(prog.completed_steps);
           const max = Math.max(...prog.completed_steps, 0);
-          setUnlockedStep(max + 1); // Déverrouille le suivant
+          setUnlockedStep(max + 1);
         }
       } catch (e) { console.error(e); } 
       finally { setLoading(false); }
@@ -147,12 +146,11 @@ useEffect(() => {
     loadData();
   }, [supabase, router]); 
 
-  // --- SAUVEGARDE DU NIVEAU ACTUEL (L'ENDROIT OÙ IL S'ARRÊTE) ---
+  // --- SAUVEGARDE DU NIVEAU ACTUEL ---
   useEffect(() => {
     const syncCurrentPosition = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (user && params.id) {
-        // AJOUT : On enregistre que l'utilisateur est sur ce niveau précisément
         await supabase.from('progressions').upsert({
           user_id: user.id,
           user_email: user.email,
@@ -204,17 +202,15 @@ useEffect(() => {
     const newCompleted = Array.from(new Set([...completedSteps, currentStep]));
     setCompletedSteps(newCompleted);
     
-    // AJOUT : Calcul du nouvel unlockedStep basé sur le chapitre fini
     if (nextLevelIndex > unlockedStep) setUnlockedStep(nextLevelIndex);
 
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
-      // AJOUT : On met à jour completed_steps ET on prépare déjà le last_level_visited pour le suivant
       await supabase.from('progressions').upsert({
         user_id: user.id,
         user_email: user.email,
         completed_steps: newCompleted,
-        last_level_visited: nextLevelIndex + 1, // On le prépare pour le niveau d'après
+        last_level_visited: nextLevelIndex + 1,
         updated_at: new Date().toISOString(),
       }, { onConflict: 'user_id' });
     }
@@ -254,7 +250,6 @@ useEffect(() => {
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden" onClick={() => setIsSidebarOpen(false)} />
       )}
 
-      {/* SIDEBAR */}
       <aside className={`fixed inset-y-0 left-0 w-72 z-50 transform transition-transform lg:relative lg:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} ${isDarkMode ? 'bg-[#0A0B10] border-white/5' : 'bg-white border-slate-200 shadow-xl'} border-r overflow-y-auto`}>
         <div className="p-6">
           <div className="flex items-center gap-3 mb-10 select-none">
