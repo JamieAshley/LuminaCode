@@ -44,7 +44,8 @@ export default function Register() {
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          // On change l'URL de redirection pour pointer vers ta page existante
+          emailRedirectTo: `${window.location.origin}/apprendre/login`,
         },
       });
 
