@@ -1,17 +1,40 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
-  const requestUrl = new URL(request.url)
-  const code = requestUrl.searchParams.get('code')
+  const { searchParams, origin } = new URL(request.url)
+  const code = searchParams.get('code')
+  // On définit où aller après la confirmation (ton login)
+  const next = searchParams.get('next') ?? '/apprendre/login'
 
   if (code) {
-    const supabase = createRouteHandlerClient({ cookies })
-    // Échange le code contre une session utilisateur
-    await supabase.auth.exchangeCodeForSession(code)
+    const cookieStore = cookies()
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            cookieStore.set({ name, value, ...options })
+          },
+          remove(name: string, options: CookieOptions) {
+            cookieStore.set({ name, value: '', ...options })
+          },
+        },
+      }
+    )
+
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    
+    if (!error) {
+      return NextResponse.redirect(`${origin}${next}`)
+    }
   }
 
-  // Redirige l'utilisateur vers ta page de login une fois validé
-  return NextResponse.redirect(`${requestUrl.origin}/apprendre/login`)
+  // En cas d'erreur de code ou de session, on renvoie au login avec un message
+  return NextResponse.redirect(`${origin}/apprendre/login?error=auth_failed`)
 }
