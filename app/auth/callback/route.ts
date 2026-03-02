@@ -5,11 +5,12 @@ import { NextResponse } from 'next/server'
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  // On définit où aller après la confirmation (ton login)
   const next = searchParams.get('next') ?? '/apprendre/login'
 
   if (code) {
-    const cookieStore = cookies()
+    // AJOUT DE AWAIT ICI
+    const cookieStore = await cookies() 
+    
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -35,6 +36,5 @@ export async function GET(request: Request) {
     }
   }
 
-  // En cas d'erreur de code ou de session, on renvoie au login avec un message
   return NextResponse.redirect(`${origin}/apprendre/login?error=auth_failed`)
 }
